@@ -1,7 +1,7 @@
 # crypto-app-landing-vue
 
 ## About
-this project was my accestent task for a job interview. I was supposed to make app using given figma design. It was required to use Vue.js 3 with composition API. Also i had to use coinmakretcap API.
+This project was my accestent task for a job interview. I was supposed to make app using given figma design. It was required to use Vue.js 3 with composition API. Also i had to use coinmakretcap API.
 
 ## Project setup
 ```

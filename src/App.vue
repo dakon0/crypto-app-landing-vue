@@ -1,26 +1,50 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <sidebar-component class="sidebar"></sidebar-component>
+  <div class="main-body"></div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
+  import SidebarComponent from './components/SidebarComponent'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    // HelloWorld
+    SidebarComponent
+
   }
 }
 </script>
 
 <style>
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'SF Pro Display', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
 }
+html {
+  background-color: black;
+}
+
+body {
+  margin: 0px;
+}
+.sidebar {
+  background-color: #F7F7F9;
+  width:264px;
+  height: 100vh;
+  border-radius: 20px 0px 0px 20px ;
+}
+
+.main-body {
+  background:  #FFFFFF;
+  width: calc(100vw - 264px);
+  height: 100vh;
+  border-radius: 0px 20px 20px 0px ;
+}
+
 </style>
