@@ -1,8 +1,9 @@
 <template>
-     <div class="overview">
+     <div class="overview" :class="{tabIsChosen: active}" @click="tab">
         <div class="image-container"><img :src=icon_src></div>
         <span class="tab-name">{{ label }}</span>
-        <div class="notifications">9+</div>
+        <div v-if="notifications" class="notifications">{{ notifications }}</div>
+        <div v-else class="no-notifications">9+</div>
     </div>
 </template>
 
@@ -11,7 +12,13 @@
         props: {
             icon_src: {required: true, type: String},
             label: {required: true, type: String},
-            notifications: {required: true, type: String}
+            notifications: {required: false, type: String},
+            active: {required: true, type: Boolean}
+        },
+        data() {
+            return{
+
+            };
         }
     }
 </script>
@@ -20,20 +27,27 @@
     .overview {
         display: flex;
         align-items: center;
-        /* border: solid black; */
         font-size: 16px;
         font-weight: 600;
         line-height: 24px;
-        color: #0A041C;
+
         box-sizing: border-box;
         width: 244px;
         height: 44px;
         margin: 0px 10px 0px 10px; 
         border-radius: 4px;
-        background: #FFFFFF;
-        border: 1px solid #EBEBF3;
+        color: rgba(10, 4, 28, 0.4);
+        background: #F7F7F9;
+        border: solid 1px #F7F7F9;
     }
 
+    .tabIsChosen {
+        background: #FFFFFF;;
+        color: #0A041C;
+        border: 1px solid #EBEBF3;
+
+    }
+    
     .image-container {
         width: 24px;
         height: 24px;
@@ -42,6 +56,8 @@
     }
     .tab-name {
         margin-right: 90px;
+        width: 90px;
+        text-align: left;
     }
     .notifications {
         /* width: 23px; */
@@ -52,7 +68,18 @@
         font-weight: 700;
         line-height: 10px;
         border-radius: 30px;
-        padding: 3px 5px 4px 5px;
+        padding: 4px 5px 4px 5px;
+        margin-right: 14px;
+    }
+    .no-notifications {
+        background-color: black;
+        background-color: #F7F7F9;;
+        color: #F7F7F9;
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 10px;
+        border-radius: 30px;
+        padding: 4px 5px 4px 5px;
         margin-right: 14px;
     }
 </style>
