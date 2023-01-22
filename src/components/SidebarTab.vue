@@ -18,7 +18,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .tab-body {
         display: flex;
         align-items: center;

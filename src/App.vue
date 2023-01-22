@@ -1,18 +1,19 @@
 <template>
   <sidebar-component class="sidebar"></sidebar-component>
-  <div class="main-body"></div>
+  <main-body-component class="main-body"></main-body-component>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
   import SidebarComponent from './components/SidebarComponent'
+  import MainBodyComponent from './components/MainBodyComponent'
 
 export default {
   name: 'App',
   components: {
     // HelloWorld
-    SidebarComponent
-
+    SidebarComponent,
+    MainBodyComponent
   }
 }
 </script>
