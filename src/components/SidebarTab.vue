@@ -1,6 +1,6 @@
 <template>
-     <div class="overview" :class="{tabIsChosen: active}" @click="tab">
-        <div class="image-container"><img :src=icon_src></div>
+     <div class="tab-body" :class="{tabIsChosen: active}" @click="tab">
+        <div class="image-container"><img :src=icon_src width="20" height="20"></div>
         <span class="tab-name">{{ label }}</span>
         <div v-if="notifications" class="notifications">{{ notifications }}</div>
         <div v-else class="no-notifications">9+</div>
@@ -14,23 +14,17 @@
             label: {required: true, type: String},
             notifications: {required: false, type: String},
             active: {required: true, type: Boolean}
-        },
-        data() {
-            return{
-
-            };
         }
     }
 </script>
 
 <style>
-    .overview {
+    .tab-body {
         display: flex;
         align-items: center;
         font-size: 16px;
         font-weight: 600;
         line-height: 24px;
-
         box-sizing: border-box;
         width: 244px;
         height: 44px;
@@ -56,7 +50,7 @@
     }
     .tab-name {
         margin-right: 90px;
-        width: 90px;
+        width: 85px;
         text-align: left;
     }
     .notifications {
