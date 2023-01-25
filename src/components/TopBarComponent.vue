@@ -32,8 +32,8 @@
             };
         },
         methods: {
-            hambugerClicked(){
-                this.menu_render = true;
+            hamburgerClicked(){
+                this.menu_render = !this.menu_render;
             }
         }
     }
