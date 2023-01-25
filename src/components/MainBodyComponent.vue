@@ -7,10 +7,10 @@
         </div>
         <div class="tab-tile">
             <tab-tile-bar></tab-tile-bar>
-            <tab-tile-summary-cryptocurr logo_src="/../img/bitcoin-favorites-icon.svg" abbreviature="BTC" curr_name="Bitcoin" :price=this.cryptoData[0] change="2.15" curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
-            <tab-tile-summary-cryptocurr logo_src="/../img/ethereum-favorites-icon.svg" abbreviature="ETH" curr_name="Ethereum" :price=this.cryptoData[1] change="2.11" curve_src="/../img/ethereum-longer-curve.svg"></tab-tile-summary-cryptocurr>
-            <tab-tile-summary-cryptocurr logo_src="/../img/ripple-favorites-icon.svg" abbreviature="ADA" curr_name="Cardano" :price=this.cryptoData[2] change="1.34" curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
-            <tab-tile-summary-cryptocurr logo_src="/../img/bitcoin-favorites-icon.svg" abbreviature="BTC" curr_name="Bitcoin" :price=this.cryptoData[0] change="2.15" curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
+            <tab-tile-summary-cryptocurr logo_src="/../img/bitcoin-favorites-icon.svg" abbreviature="BTC" curr_name="Bitcoin" :price=this.cryptoData[0][0] :change=this.cryptoData[1][0] curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
+            <tab-tile-summary-cryptocurr logo_src="/../img/ethereum-favorites-icon.svg" abbreviature="ETH" curr_name="Ethereum" :price=this.cryptoData[0][1] :change=this.cryptoData[1][1] curve_src="/../img/ethereum-longer-curve.svg"></tab-tile-summary-cryptocurr>
+            <tab-tile-summary-cryptocurr logo_src="/../img/ripple-favorites-icon.svg" abbreviature="ADA" curr_name="Cardano" :price=this.cryptoData[0][2] :change=this.cryptoData[1][2] curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
+            <tab-tile-summary-cryptocurr logo_src="/../img/bitcoin-favorites-icon.svg" abbreviature="BTC" curr_name="Bitcoin" :price=this.cryptoData[0][0] :change=this.cryptoData[1][0] curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
         </div>
     </div>
 </template>
@@ -43,7 +43,6 @@
         methods: {
             async getFromServer() {
                 DataService.getCurrencies().then(data => {this.cryptoData = data});
-                console.log(1,this.cryptoData[1])
             }
         }
     }

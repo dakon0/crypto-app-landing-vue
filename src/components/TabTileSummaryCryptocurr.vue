@@ -14,7 +14,7 @@
         <div class="change">
             <div class="change-label">Change</div>
             <div class="change-number">
-                <div>+{{ change }}%</div>
+                <div>{{ change }}%</div>
                 <img src="/../img/increase-transparent-icon.svg">
             </div>
         </div>
@@ -30,8 +30,8 @@
             logo_src: {required: true, type: String},
             abbreviature: {required: true, type: String},
             curr_name: {required: true, type: String},
-            price: {required: true, type: Number},
-            change: {required: true, type: Number},
+            price: {required: true, type: String},
+            change: {required: true, type: String},
             curve_src: {required: true, type: String}
         }
     }
