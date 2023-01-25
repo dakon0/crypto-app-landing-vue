@@ -37,7 +37,7 @@
 <script>
 import SidebarTab from './SidebarTab.vue'
 import SidebarFavoritesTab from './SidebarFavoritesTab.vue'
-import DataService from '@/services/DataService.js';
+// import DataService from '../services/DataService.js';
 export default {
     components: {
         SidebarTab,
@@ -48,14 +48,14 @@ export default {
       favorites: {}
     }
   },
-    created() {
-        this.getFromServer(); 
-    },
-    methods: {
-    async getFromServer() {
-            DataService.getFavorites().then(data => {this.favorites = data.data[1].name});
-        }
-    }
+    // created() {
+    //     this.getFromServer(); 
+    // },
+    // methods: {
+    // async getFromServer() {
+    //         DataService.getCurrencies().then(data => {this.favorites = data.data[1].name});
+    //     }
+    // }
 }
 </script>
 

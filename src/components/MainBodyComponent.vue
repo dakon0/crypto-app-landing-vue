@@ -2,120 +2,71 @@
     <div>
        <top-bar-component></top-bar-component>
         <div class="balance-summary">
-            <div class="current-balance">
-                <div class="head">
-                    <div class="heading">Current Balance</div>
-                    <div class="head-btn"><img src="/../img/dots-icon.svg" width="24" height="24"></div>
-                </div>
-                <p class="current-balance-number"><span class="dollar">$</span><span class="price">21 432.23</span></p>
-                <div class="change-to-last-month">
-                    <img src="/../img/increase-balance-icon.svg">
-                    <div>12% vs lsast month</div>
-                </div>
-                <div class="invest-report-buttons">
-                    <div class="invest">Quich Invest</div>
-                    <div class="report">Show Report</div>
-                </div>
-            </div>
-            <div class="summary"></div>
+            <current-balance-tile></current-balance-tile>
+            <summary-tile></summary-tile>
+        </div>
+        <div class="tab-tile">
+            <tab-tile-bar></tab-tile-bar>
+            <tab-tile-summary-cryptocurr logo_src="/../img/bitcoin-favorites-icon.svg" abbreviature="BTC" curr_name="Bitcoin" price="29,982.96" change="2.15" curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
+            <tab-tile-summary-cryptocurr logo_src="/../img/ethereum-favorites-icon.svg" abbreviature="ETH" curr_name="Ethereum" price="1,816.61" change="2.11" curve_src="/../img/ethereum-longer-curve.svg"></tab-tile-summary-cryptocurr>
+            <tab-tile-summary-cryptocurr logo_src="/../img/ripple-favorites-icon.svg" abbreviature="ADA" curr_name="Cardano" price="0.5748" change="1.34" curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
+            <tab-tile-summary-cryptocurr logo_src="/../img/bitcoin-favorites-icon.svg" abbreviature="BTC" curr_name="Bitcoin" price="29,982.96" change="2.15" curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
         </div>
     </div>
 </template>
 
 <script>
     import TopBarComponent from "./TopBarComponent.vue"
+    import CurrentBalanceTile from "./CurrentBalanceTile.vue"
+    import SummaryTile from "./SummaryTile.vue"
+    import TabTileBar from "./TabTileBar.vue"
+    import TabTileSummaryCryptocurr from "./TabTileSummaryCryptocurr.vue"
+    import DataService from '../services/DataService.js';
+
 
     export default {
         components: {
-            TopBarComponent
+            TopBarComponent,
+            CurrentBalanceTile,
+            SummaryTile,
+            TabTileBar,
+            TabTileSummaryCryptocurr
+        }, 
+        data(){
+            return {
+                cryptoData: {}
+            };
+        },
+        created() {
+            this.getFromServer(); 
+        },
+        methods: {
+            async getFromServer() {
+                DataService.getCurrencies().then(data => {this.cryptoData = data});
+                console.log(1,this.cryptoData)
+            }
         }
     }
 </script>
 
 <style scoped>
-   .current-balance {
-    width: 509px;
-    height: 336px;
-    background: #F7F7F9;
-    border-radius: 16px;
-    margin-right: 32px;
-   }
-   .current-balance .head {
-    display: flex;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    height: 24px;
-    margin: 32px 32px 40px 32px;
-    justify-content: space-between;
-   }
-   .current-balance .current-balance-number {
-    font-weight: 300;
-    font-size: 56px;
-    line-height: 56px;
-    margin-top: 40px;
-    margin-left: 32px;
-    margin-bottom: 16px;
-    text-align: left;
-   } 
-   .current-balance .current-balance-number .dollar{
-    color: #9896A1;
-   }
-   .current-balance .current-balance-number .price{
-    color: #0A041C;
-    }
-    .change-to-last-month {
-        display: flex;
-        align-items: center;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 24px;
-        color: #2DC78F;
-        margin-left: 32px;
-        margin-bottom: 72px;
-    }
-    .invest-report-buttons{
-        display:flex;
-        align-items: center;
-        margin-left: 32px;
-    }
-    .invest-report-buttons .invest{
-        box-sizing: border-box;
-        width: 109px;
-        height: 40px;
-        background: #7445FB;
-        border-radius: 4px;
-        padding-top: 8px;
-        margin-right: 8px;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 24px;
-        color:#FFFFFF;
-    }
-    .invest-report-buttons .report{
-        box-sizing: border-box;
-        width: 112px;
-        height: 40px;
-        background: #FFFFFF;
-        border: 1px solid #EBEBF3;
-        padding-top: 8px;
-        border-radius: 4px;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 24px;
-        color: #7445FB;
 
-    }
-
-   .summary {
-    width: 499px;
-    height: 336px;
-    background: #F7F7F9;
-    border-radius: 16px;
-   }
    .balance-summary {
     display: flex;
     margin-top: 32px;
     margin-left: 68px;
+    margin-right: 68px;
    }
+   .tab-tile {
+        width: 1040px;
+        height: 504px;
+        box-sizing: border-box;
+        border-radius: 16px;
+        background: #F7F7F9; 
+        margin-top: 32px;   
+        margin-left: 68px;
+        margin-right: 68px;
+        padding-top: 32px;
+        padding-left: 32px;
+    }
 </style>

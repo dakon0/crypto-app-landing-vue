@@ -22,7 +22,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .favorites-element {
         display: flex;
         align-items: center;
