@@ -11,14 +11,33 @@
                 <img src="/../img/ring-icon.svg" width="20" height="20">
                 <img class="notification-identifier" src="/../img/notification-identifier-icon.svg" width="12" height="12">
             </div>
-            <div class="menu">
+            <div class="menu" @click="hamburgerClicked">
                 <img src="/../img/menu-burger-icon.svg" width="20" height="20">
+            </div>
+            <div class="menu-bar" v-if="menu_render">
+                <div class="home">Home</div>
+                <div class="profile">Profile</div>
+                <div class="wallet">Wallet</div>
+                <div class="orders">Orders</div>
             </div>
         </div>
     </div>
 </template>
 
-<script></script>
+<script>
+    export default {
+        data() {
+            return{
+                menu_render: false,
+            };
+        },
+        methods: {
+            hambugerClicked(){
+                this.menu_render = true;
+            }
+        }
+    }
+</script>
 
 <style scoped>
      .top-bar {
@@ -68,11 +87,26 @@
         display: flex;
         position: absolute;
         left: calc(100vw - 180px);
+        top: 50px;
     }
     .notification-identifier {
         position: relative;
         top: -42px;
         left: 21px;
+    }
+    .menu-bar {
+        display: flex;
+        position: relative;
+        left: -500px;
+    }
+    .menu-bar div{
+        box-sizing: border-box;
+        width: 80px;
+        height: 48px;
+        margin-right: 10px;
+        padding: 14px;
+        background: #b5b5bb;
+        border-radius: 8px;
     }
 
 </style>
