@@ -12,23 +12,25 @@ export default {
   mapPrice(price){
      if(price >= 1000){
       let howManyThousands = String(Math.round(price / 1000)).length;
+      price = price.toFixed(2);
       price = String(price).slice(0,howManyThousands) + ',' + String(price).slice(howManyThousands);
-
-      return price
      }
-    return String(price)
+     else if(price < 1) price = String(price.toFixed(4));
+     else price = String(price.toFixed(2));
+    return price
   },
   mapChange(change) {
-    if(change > 0) return '+' + String(change)
-    if(change < 0) return String(change)
+    console.log(Number('-' + String(change)) > 0);
+    if(change > 0) return '+' + String(change);
+    if(change < 0) return String(change);
 
   },
   async getCurrencies() {
     let res = await axios.get("http://localhost:8000/");
     // let res = await axios.get("https://express-server-coinmarketcap-api-production.up.railway.app/");
-    let currenciesPrices = [(res.data.data.BTC.quote.USD.price).toFixed(2),
-                            (res.data.data.ETH.quote.USD.price).toFixed(2),
-                            (res.data.data.ADA.quote.USD.price).toFixed(2)];
+    let currenciesPrices = [(res.data.data.BTC.quote.USD.price),
+                            (res.data.data.ETH.quote.USD.price),
+                            (res.data.data.ADA.quote.USD.price)];
     currenciesPrices = currenciesPrices.map(this.mapPrice)
     let currenciesChanges = [(res.data.data.BTC.quote.USD.percent_change_24h).toFixed(2),
                              (res.data.data.ETH.quote.USD.percent_change_24h).toFixed(2),

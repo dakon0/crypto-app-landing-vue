@@ -15,7 +15,6 @@
 <style scoped>
     .tab-bar {
         display: flex;
-        width: 1008px;
         font-weight: 400;
         color: #9896A1;
         font-size: 16px;

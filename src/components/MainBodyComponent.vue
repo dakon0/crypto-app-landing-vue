@@ -57,8 +57,9 @@
     margin-right: 68px;
    }
    .tab-tile {
-        width: 1040px;
-        height: 504px;
+        max-width: 1200px;
+        /* width: 1040px; */
+        /* height: 504px; */
         box-sizing: border-box;
         border-radius: 16px;
         background: #F7F7F9; 
