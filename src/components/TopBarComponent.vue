@@ -11,14 +11,14 @@
                 <img src="/../img/ring-icon.svg" width="20" height="20">
                 <img class="notification-identifier" src="/../img/notification-identifier-icon.svg" width="12" height="12">
             </div>
-            <div class="menu" @click="hamburgerClicked">
-                <img src="/../img/menu-burger-icon.svg" width="20" height="20">
-            </div>
             <div class="menu-bar" v-if="menu_render">
                 <div class="home">Home</div>
                 <div class="profile">Profile</div>
                 <div class="wallet">Wallet</div>
                 <div class="orders">Orders</div>
+            </div>
+            <div class="menu" @click="hamburgerClicked">
+                <img src="/../img/menu-burger-icon.svg" width="20" height="20">
             </div>
         </div>
     </div>
@@ -43,8 +43,10 @@
      .top-bar {
         display: flex;
         align-items: center;
-        margin-left: 68px;
-        margin-top: 49px;
+        justify-content: space-between;
+        margin: 49px 68px 0px 68px;
+        /* margin-left: 68px; */
+        /* margin-top: 49px; */
     }
     .search-input {
         box-sizing: border-box;
@@ -85,9 +87,9 @@
 
     .notifications-menu {
         display: flex;
-        position: absolute;
-        left: calc(100vw - 180px);
-        top: 50px;
+        /* position: absolute; */
+        /* left: calc(100vw - 180px); */
+        /* top: 50px; */
     }
     .notification-identifier {
         position: relative;
@@ -96,8 +98,8 @@
     }
     .menu-bar {
         display: flex;
-        position: relative;
-        left: -500px;
+        /* position: relative; */
+        /* left: -500px; */
     }
     .menu-bar div{
         box-sizing: border-box;

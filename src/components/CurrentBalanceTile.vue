@@ -22,9 +22,10 @@
    .current-balance {
     width: 509px;
     height: 336px;
+    box-sizing: border-box;
     background: #F7F7F9;
     border-radius: 16px;
-    margin-right: 32px;
+    /* margin-right: 32px; */
    }
    .current-balance .head {
     display: flex;

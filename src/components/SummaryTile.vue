@@ -28,10 +28,13 @@
 
 <style scoped>
    .summary {
+    box-sizing: border-box;
     width: 499px;
     height: 336px;
     background: #F7F7F9;
     border-radius: 16px;
+    /* padding: 32px 32px 0px 32px; */
+    padding-top: 32px;
    }
      .summary .head {
     display: flex;
@@ -39,7 +42,7 @@
     font-size: 20px;
     line-height: 24px;
     height: 24px;
-    margin: 32px 32px 24px 32px;
+    margin: 0px 32px 24px 32px;
     justify-content: space-between;
    }
    .summary .plot {

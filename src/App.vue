@@ -1,6 +1,6 @@
 <template>
-  <sidebar-component class="sidebar"></sidebar-component>
-  <main-body-component class="main-body"></main-body-component>
+  <sidebar-component v-if="windowWidth > 1200" class="sidebar"></sidebar-component>
+  <main-body-component class="main-body" :class="{ sidebarHidden: !(windowWidth > 1200) }"></main-body-component>
 </template>
 
 <script>
@@ -14,7 +14,26 @@ export default {
     // HelloWorld
     SidebarComponent,
     MainBodyComponent
+  },
+  mounted() {
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.onResize);
+    })
+  },
+  beforeUnmount() { 
+    window.removeEventListener('resize', this.onResize); 
+  },
+  methods: {
+    onResize(){
+      this.windowWidth = window.innerWidth;
+    }
+  },
+  data() {
+    return {
+       windowWidth: window.innerWidth
+    };
   }
+
 }
 </script>
 
@@ -30,7 +49,6 @@ export default {
 html {
   background-color: black;
 }
-
 body {
   margin: 0px;
 }
@@ -40,13 +58,15 @@ body {
   height: 100vh;
   border-radius: 20px 0px 0px 20px ;
 }
-
 .main-body {
   background:  #FFFFFF;
-  width: calc(100vw - 264px);
-  /* width: 100%; */
+  width: calc(100% - 264px);
   height: 100vh;
   border-radius: 0px 20px 20px 0px ;
+  overflow: auto;
 }
-
+.main-body.sidebarHidden {
+  width: 100%;
+  border-radius: 20px 20px 20px 20px ;
+}
 </style>
