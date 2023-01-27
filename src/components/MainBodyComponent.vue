@@ -101,6 +101,5 @@ export default {
     bottom: 0px;
     background: linear-gradient(180deg, rgba(139, 167, 32, 0) 0%, rgba(255, 255, 255, 1) 100%);
     pointer-events: none;
-    border: solid black 3px;
 }
 </style>
