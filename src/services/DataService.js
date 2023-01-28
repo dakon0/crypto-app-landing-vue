@@ -20,14 +20,13 @@ export default {
     return price
   },
   mapChange(change) {
-    console.log(Number('-' + String(change)) > 0);
     if(change > 0) return '+' + String(change);
     if(change < 0) return String(change);
 
   },
   async getCurrencies() {
-    let res = await axios.get("http://localhost:8000/");
-    // let res = await axios.get("https://express-server-coinmarketcap-api-production.up.railway.app/");
+    // let res = await axios.get("http://localhost:8000/");
+    let res = await axios.get("https://express-server-coinmarketcap-api-production.up.railway.app/");
     let currenciesPrices = [(res.data.data.BTC.quote.USD.price),
                             (res.data.data.ETH.quote.USD.price),
                             (res.data.data.ADA.quote.USD.price)];
@@ -36,7 +35,6 @@ export default {
                              (res.data.data.ETH.quote.USD.percent_change_24h).toFixed(2),
                              (res.data.data.ADA.quote.USD.percent_change_24h).toFixed(2)];
     currenciesChanges = currenciesChanges.map(this.mapChange)
-    // return res; //returning whole fetched object
     return [currenciesPrices, currenciesChanges];//returning only needed data
   }
 }

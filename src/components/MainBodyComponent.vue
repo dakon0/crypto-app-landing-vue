@@ -24,7 +24,6 @@
         <div v-if="windowWidth <= 940" class="summary-tile-bottom">
             <summary-tile></summary-tile>
         </div>
-
     </div>
 </template>
 
@@ -47,17 +46,17 @@ export default {
     },
     data() {
         return {
-            cryptoData: [],
+            cryptoData: [['default','place','holder'],['default','place','holder']],
             windowWidth: window.innerWidth
         };
     },
-    created() {
-        this.getFromServer();
-    },
     methods: {
         async getFromServer() {
-            DataService.getCurrencies().then(data => { this.cryptoData = data });
-        }
+            await DataService.getCurrencies().then(data => { this.cryptoData = data });
+        },        
+    },
+    created() {
+        this.getFromServer();
     }
 }
 </script>

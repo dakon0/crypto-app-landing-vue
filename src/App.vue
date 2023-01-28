@@ -47,7 +47,8 @@ export default {
   display: flex;
 }
 html {
-  background-color: black;
+  /* background-color: black;*/
+  background-color: #000000;
 }
 body {
   margin: 0px;

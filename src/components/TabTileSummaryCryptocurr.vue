@@ -36,8 +36,8 @@
             logo_src: {required: true, type: String},
             abbreviature: {required: true, type: String},
             curr_name: {required: true, type: String},
-            price: {required: true, type: String},
-            change: {required: true, type: String},
+            price: {required: true, type: String, default: 'default'},
+            change: {required: true, type: String, default: 'default'},
             curve_src: {required: true, type: String}
         },
         data() {
