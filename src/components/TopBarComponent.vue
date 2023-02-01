@@ -18,7 +18,7 @@
                 <div class="orders">Orders</div>
             </div>
             <div class="menu" @click="hamburgerClicked">
-                <img src="/../img/menu-burger-icon.svg" width="20" height="20">
+                <img src="/../img/menu-burger-icon.svg" width="14" height="14">
             </div>
         </div>
     </div>
@@ -80,7 +80,7 @@
         box-sizing: border-box;
         width: 48px;
         height: 48px;
-        padding: 14px;
+        padding-top: 15px;
         background: #F7F7F9;
         border-radius: 8px;
     }

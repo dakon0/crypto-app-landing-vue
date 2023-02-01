@@ -12,12 +12,17 @@
 </template>
 
 <script>
+
     export default {
         props: {
             logo: {required: true, type: String},
             abbreviation: {required: true, type: String},
             full_name: {required: true, type: String},
-            curve_src: {required: true, type: String}
+            curve_src: {required: true, type: String},
+        },
+        methods: {
+        },
+        mounted(){
         }
     }
 </script>
@@ -60,9 +65,8 @@
         color: #0A041C; 
     }
     .curve {
-        /* background: black; */
         width: 80px;
         height: 28px;
-
     }
+
 </style>

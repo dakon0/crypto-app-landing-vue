@@ -1,19 +1,39 @@
 <template>
-  <sidebar-component v-if="windowWidth > 1200" class="sidebar"></sidebar-component>
-  <main-body-component class="main-body" :class="{ sidebarHidden: !(windowWidth > 1200) }"></main-body-component>
+  <sidebar-component v-if="windowWidth > 1200" class="sidebar" ></sidebar-component>
+  <main-body-component v-if="cryptoData[0][0] && plotData[0][0]"  class="main-body" :class="{ sidebarHidden: !(windowWidth > 1200) }" :cryptoDataProp=this.cryptoData :plotDataProp=this.plotData></main-body-component>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
   import SidebarComponent from './components/SidebarComponent'
   import MainBodyComponent from './components/MainBodyComponent'
+  import DataService from './services/DataService.js';
+
 
 export default {
   name: 'App',
   components: {
-    // HelloWorld
     SidebarComponent,
     MainBodyComponent
+  },
+  methods: {
+    onResize(){
+      this.windowWidth = window.innerWidth;
+    },
+    async getFromServer() {
+      await DataService.getCurrencies().then(data => { this.cryptoData = data;this.$forceUpdate(); });
+      await DataService.getHistoricals().then(data => {this.plotData = data;this.$forceUpdate();});
+    }
+  },
+  data() {
+    return {
+      windowWidth: window.innerWidth,
+      //  cryptoData: [['default','place','holder'],['default','place','holder']],
+      cryptoData: [[],[]],
+      plotData: [[],[],[],[]]
+    };
+  },
+  created(){
+    this.getFromServer();
   },
   mounted() {
     this.$nextTick(() => {
@@ -22,18 +42,7 @@ export default {
   },
   beforeUnmount() { 
     window.removeEventListener('resize', this.onResize); 
-  },
-  methods: {
-    onResize(){
-      this.windowWidth = window.innerWidth;
-    }
-  },
-  data() {
-    return {
-       windowWidth: window.innerWidth
-    };
   }
-
 }
 </script>
 

@@ -16,8 +16,8 @@
                 <p>Favorites</p>
                 <div class="favorites-dots-btn"><img class src="/../img/dots-icon.svg"></div> 
             </div>
-            <sidebar-favorites-tab logo="/../img/bitcoin-favorites-icon.svg" abbreviation="BTC" full_name="Bitcoin" curve_src="/../img/btc-small-curve.svg"></sidebar-favorites-tab> 
-            <sidebar-favorites-tab logo="/../img/ripple-favorites-icon.svg" abbreviation="XRP" full_name="Ripple" curve_src="/../img/ripple-small-curve.svg"></sidebar-favorites-tab> 
+            <sidebar-favorites-tab logo="/../img/bitcoin-favorites-icon.svg" abbreviation="BTC" full_name="Bitcoin" curve_src="/../img/btc-small-curve.svg" ></sidebar-favorites-tab> 
+            <sidebar-favorites-tab logo="/../img/ripple-favorites-icon.svg" abbreviation="XRP" full_name="Ripple" curve_src="/../img/ripple-small-curve.svg" ></sidebar-favorites-tab> 
             <div class="user-profile-tab">
                 <div class="profile-photo">
                     <img src="/../img/a-portrait-of-businessman.png">
@@ -37,25 +37,18 @@
 <script>
 import SidebarTab from './SidebarTab.vue'
 import SidebarFavoritesTab from './SidebarFavoritesTab.vue'
-// import DataService from '../services/DataService.js';
 export default {
     components: {
         SidebarTab,
         SidebarFavoritesTab
     },
+    props: {
+    },
     data() {
-    return {
-      favorites: {}
-    }
-  },
-    // created() {
-    //     this.getFromServer(); 
-    // },
-    // methods: {
-    // async getFromServer() {
-    //         DataService.getCurrencies().then(data => {this.favorites = data.data[1].name});
-    //     }
-    // }
+        return {
+            favorites: {}
+        }
+  }
 }
 </script>
 

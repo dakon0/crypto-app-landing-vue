@@ -3,7 +3,7 @@
         <top-bar-component></top-bar-component>
         <div class="balance-summary">
             <current-balance-tile></current-balance-tile>
-            <summary-tile v-if="windowWidth > 940"></summary-tile>
+            <summary-tile v-if="windowWidth > 940" :plotDataProp=this.plotDataProp></summary-tile>
         </div>
         <div class="blurring"></div>
         <div class="tab-tile">
@@ -22,7 +22,10 @@
                 curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
         </div>
         <div v-if="windowWidth <= 940" class="summary-tile-bottom">
-            <summary-tile></summary-tile>
+            <summary-tile :plotDataProp=this.plotDataProp></summary-tile>
+        </div>
+        <div class="exp-chart">
+            <canvas id="canvas"></canvas>
         </div>
     </div>
 </template>
@@ -33,7 +36,6 @@ import CurrentBalanceTile from "./CurrentBalanceTile.vue"
 import SummaryTile from "./SummaryTile.vue"
 import TabTileBar from "./TabTileBar.vue"
 import TabTileSummaryCryptocurr from "./TabTileSummaryCryptocurr.vue"
-import DataService from '../services/DataService.js';
 
 
 export default {
@@ -44,24 +46,33 @@ export default {
         TabTileBar,
         TabTileSummaryCryptocurr
     },
+    props: {
+        cryptoDataProp: {required:true, type: Array},
+        plotDataProp: {required: true, type: Array}
+    },
     data() {
         return {
-            cryptoData: [['default','place','holder'],['default','place','holder']],
+            // cryptoData: [['default','place','holder'],['default','place','holder']],
+            cryptoData: this.$root.$data.cryptoData,
             windowWidth: window.innerWidth
         };
     },
     methods: {
-        async getFromServer() {
-            await DataService.getCurrencies().then(data => { this.cryptoData = data });
-        },        
+        
+        
     },
     created() {
-        this.getFromServer();
     }
+
 }
 </script>
 
 <style scoped>
+.chart {
+    height: 500px;
+    width: 500px;
+    /* background-color: aquamarine; */
+}
 .balance-summary {
     display: flex;
     margin-top: 32px;

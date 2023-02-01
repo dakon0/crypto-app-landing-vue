@@ -25,8 +25,8 @@ export default {
 
   },
   async getCurrencies() {
-    // let res = await axios.get("http://localhost:8000/");
-    let res = await axios.get("https://express-server-coinmarketcap-api-production.up.railway.app/");
+    // let res = await axios.get("http://localhost:8000/price-change");
+    let res = await axios.get("https://express-server-coinmarketcap-api-production.up.railway.app/price-change");
     let currenciesPrices = [(res.data.data.BTC.quote.USD.price),
                             (res.data.data.ETH.quote.USD.price),
                             (res.data.data.ADA.quote.USD.price)];
@@ -36,5 +36,21 @@ export default {
                              (res.data.data.ADA.quote.USD.percent_change_24h).toFixed(2)];
     currenciesChanges = currenciesChanges.map(this.mapChange)
     return [currenciesPrices, currenciesChanges];//returning only needed data
+  },
+  quotes2prices(quotes){
+    return quotes.quote.USD.price;
+  },
+  async getHistoricals() {
+    //let res = await axios.get("http://localhost:8000/historicals");
+    let res = await axios.get("https://express-server-coinmarketcap-api-production.up.railway.app/historicals");
+    let btc = res.data.data.BTC.quotes;
+    btc = btc.map(this.quotes2prices);
+    let eth = res.data.data.ETH.quotes;
+    eth = eth.map(this.quotes2prices);
+    let ada = res.data.data.ADA.quotes;
+    ada = ada.map(this.quotes2prices);
+    let xrp = res.data.data.XRP.quotes;
+    xrp = xrp.map(this.quotes2prices);
+    return [btc, eth, ada, xrp]
   }
 }
