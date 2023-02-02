@@ -36,8 +36,8 @@ export default {
     },
     data() {
         return {
-            summaryThisMonthPlotData: this.$root.$data.plotData[0],
-            summaryLastMonthPlotData: this.$root.$data.plotData[1],
+            summaryThisMonthPlotData: this.$root.$data.plotData[0],//data fetched from api, but is 
+            summaryLastMonthPlotData: this.$root.$data.plotData[1],//in between 0 and 1 becouse of free subscription 
         };
     },
     methods: {
@@ -134,18 +134,18 @@ export default {
             triangle.src = '/../img/price-mark-triangle-icon.svg';
             pointer.src = '/../img/summary-plot-circle-pointer.svg'
         },
-        fillSummaryPlotData() {
+        fillSummaryPlotData() {//used data is fetched but between 0 and 1, so we adjust it to look nicer 
             for (let i = 0; i < 10; i++) {
-                this.summaryThisMonthPlotData[i] = Math.random() * 30;
-                this.summaryLastMonthPlotData[i] = Math.random() * 30;
+                this.summaryThisMonthPlotData[i] = this.summaryThisMonthPlotData[i] * 30;
+                this.summaryLastMonthPlotData[i] = this.summaryLastMonthPlotData[i] * 30;
             }
+            this.summaryThisMonthPlotData[4] = 21;
         }
     },
     created() {
     },
     mounted() {
         this.fillSummaryPlotData();
-        this.summaryThisMonthPlotData[4] = 21;
         this.drawChart();
     }
 
