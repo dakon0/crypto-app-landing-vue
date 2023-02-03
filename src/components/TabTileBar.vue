@@ -1,15 +1,70 @@
 <template>
     <div class="tab-bar">
-        <div class="summary activated">Summary</div>
-        <div class="table">Table</div>
-        <div class="charts">Charts</div>
-        <div class="reporting">Reporting</div>
-        <div class="analisis">Analisis</div>
+        <div class="summary" :class="{activated: summaryTabActivated}" @click="activateSummaryTab">Summary</div>
+        <div class="table" :class="{activated: tableTabActivated}" @click="activateTableTab">Table</div>
+        <div class="charts" :class="{activated: chartsTabActivated}" @click="activateChartsTab">Charts</div>
+        <div class="reporting" :class="{activated: reportingTabActivated}" @click="activateReportingTab">Reporting</div>
+        <div class="analisis" :class="{activated: analisisTabActivated}" @click="activateAnalisisTab">Analisis</div>
     </div>
 </template>
 
 <script>
+    export default {
+        data(){
+            return {
+                summaryTabActivated: true,
+                tableTabActivated: false,
+                chartsTabActivated: false,
+                reportingTabActivated: false, 
+                analisisTabActivated: false, 
+            };
+        },
+        methods: {
+            activateSummaryTab() {
+                this.summaryTabActivated= true;
+                this.tableTabActivated = false;
+                this.chartsTabActivated= false;
+                this.reportingTabActivated= false;
+                this.analisisTabActivated= false;
+                this.$emit('summaryTabActivated');
+            },
+            activateTableTab() {
+                this.summaryTabActivated= false;
+                this.tableTabActivated = true;
+                this.chartsTabActivated= false;
+                this.reportingTabActivated= false;
+                this.analisisTabActivated= false;
+                this.$emit('tableTabActivated');
+            },
+            activateChartsTab() {
+                this.summaryTabActivated= false;
+                this.tableTabActivated = false;
+                this.chartsTabActivated= true;
+                this.reportingTabActivated= false;
+                this.analisisTabActivated= false;
+                this.$emit('chartTabActivated');
 
+            },
+            activateReportingTab() {
+                this.summaryTabActivated= false;
+                this.tableTabActivated = false;
+                this.chartsTabActivated= false;
+                this.reportingTabActivated= true;
+                this.analisisTabActivated= false;
+                this.$emit('reportingTabActivated');
+
+            },
+            activateAnalisisTab() {
+                this.summaryTabActivated= false;
+                this.tableTabActivated = false;
+                this.chartsTabActivated= false;
+                this.reportingTabActivated= false;
+                this.analisisTabActivated= true;
+                this.$emit('analisisTabActivated');
+            },
+
+        }
+    }
 </script>
 
 <style scoped>

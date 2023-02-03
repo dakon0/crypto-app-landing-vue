@@ -1,6 +1,13 @@
 <template>
-  <sidebar-component v-if="windowWidth > 1200" class="sidebar" ></sidebar-component>
-  <main-body-component v-if="cryptoData[0][0] && plotData[0][0]"  class="main-body" :class="{ sidebarHidden: !(windowWidth > 1200) }" :cryptoDataProp=this.cryptoData :plotDataProp=this.plotData></main-body-component>
+  <sidebar-component v-if="windowWidth > 1200" class="sidebar"
+    @overviewSidebarTabClicked=overviewSidebarTabClicked()
+    @buysellSidebarTabClicked=buysellSidebarTabClicked()
+    @walletSidebarTabClicked=walletSidebarTabClicked()
+    @communitySidebarTabClicked=reportingSidebarTabClicked()
+    @reportingSidebarTabClicked=communitySidebarTabClicked()></sidebar-component>
+  <main-body-component v-if="cryptoData[0][0] && plotData[0][0]"  class="main-body" :class="{ sidebarHidden: !(windowWidth > 1200) }" :overviewTabContent=this.overviewActivated :cryptoDataProp=this.cryptoData :plotDataProp=this.plotData></main-body-component>
+  <!-- development mode,without need tos wait for data fetch -->
+  <!-- <main-body-component v-if="true"  class="main-body" :class="{ sidebarHidden: !(windowWidth > 1200) }" :overviewTabContent=this.overviewActivated :cryptoDataProp=this.cryptoData :plotDataProp=this.plotData></main-body-component> -->
 </template>
 
 <script>
@@ -22,12 +29,52 @@ export default {
     async getFromServer() {
       await DataService.getCurrencies().then(data => { this.cryptoData = data;this.$forceUpdate(); });
       await DataService.getHistoricals().then(data => {this.plotData = data;this.$forceUpdate();});
+    },
+    overviewSidebarTabClicked(){
+      this.overviewActivated = true;
+      this.buysellActivated = false;
+      this.walletsActivated = false;
+      this.reportingActivated = false;
+      this.communityActivated = false;
+    },
+    buysellSidebarTabClicked(){
+      this.overviewActivated = false;
+      this.buysellActivated = true;
+      this.walletsActivated = false;
+      this.reportingActivated = false;
+      this.communityActivated = false;
+    },
+    walletSidebarTabClicked(){
+      this.overviewActivated = false;
+      this.buysellActivated = false;
+      this.walletsActivated = true;
+      this.reportingActivated = false;
+      this.communityActivated = false;
+    },
+    reportingSidebarTabClicked(){
+      this.overviewActivated = false;
+      this.buysellActivated = false;
+      this.walletsActivated = false;
+      this.reportingActivated = true;
+      this.communityActivated = false;
+    },
+    communitySidebarTabClicked(){
+      this.overviewActivated = false;
+      this.buysellActivated = false;
+      this.walletsActivated = false;
+      this.reportingActivated = false;
+      this.communityActivated = true;
     }
   },
   data() {
     return {
       windowWidth: window.innerWidth,
       //  cryptoData: [['default','place','holder'],['default','place','holder']],
+      overviewActivated: true,
+      buysellActivated: false,
+      walletsActivated: false,
+      reportingActivated: false,
+      communityActivated: false,
       cryptoData: [[],[]],
       plotData: [[],[],[],[]]
     };
@@ -54,6 +101,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   display: flex;
+
 }
 html {
   /* background-color: black;*/

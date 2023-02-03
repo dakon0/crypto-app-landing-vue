@@ -5,11 +5,11 @@
             <div><p class="logo-name">Payte</p></div>
         </div>
         <div class="sidebar-tabs">
-            <sidebar-tab icon_src="/../img/overview-icon.svg" label="Overview" notifications="9+" :active=true></sidebar-tab>
-            <sidebar-tab icon_src="/../img/buy-sell-tab-icon.svg" label="Buy/Sell" notifications="" :active=false></sidebar-tab>
-            <sidebar-tab icon_src="/../img/wallets-tab-icon.svg" label="Wallets" notifications="" :active=false></sidebar-tab>
-            <sidebar-tab icon_src="/../img/reporting-tab-icon.svg" label="Reporting" notifications="" :active=false></sidebar-tab>
-            <sidebar-tab icon_src="/../img/community-tab-icon.svg" label="Community" notifications="" :active=false></sidebar-tab>
+            <sidebar-tab icon_src="/../img/overview-icon.svg" label="Overview" notifications="9+" :active=overviewTabActive @click=overviewTabClicked()></sidebar-tab>
+            <sidebar-tab icon_src="/../img/buy-sell-tab-icon.svg" label="Buy/Sell" notifications="" :active=buysellTabActive @click=buysellTabClicked()></sidebar-tab>
+            <sidebar-tab icon_src="/../img/wallets-tab-icon.svg" label="Wallets" notifications="" :active=walletsTabActive @click=walletsTabClicked()></sidebar-tab>
+            <sidebar-tab icon_src="/../img/reporting-tab-icon.svg" label="Reporting" notifications="5+" :active=reportingTabActive @click=reportingTabClicked()></sidebar-tab>
+            <sidebar-tab icon_src="/../img/community-tab-icon.svg" label="Community" notifications="" :active=communityTabActive @click=communityTabClicked()></sidebar-tab>
         </div>
         <div class="favorites">
             <div class="favorites-head">
@@ -18,6 +18,9 @@
             </div>
             <sidebar-favorites-tab logo="/../img/bitcoin-favorites-icon.svg" abbreviation="BTC" full_name="Bitcoin" curve_src="/../img/btc-small-curve.svg" ></sidebar-favorites-tab> 
             <sidebar-favorites-tab logo="/../img/ripple-favorites-icon.svg" abbreviation="XRP" full_name="Ripple" curve_src="/../img/ripple-small-curve.svg" ></sidebar-favorites-tab> 
+            <div class="sidebar-chart-div">
+                <canvas id="sidebar-chart-canvas"></canvas>
+            </div>
             <div class="user-profile-tab">
                 <div class="profile-photo">
                     <img src="/../img/a-portrait-of-businessman.png">
@@ -46,13 +49,68 @@ export default {
     },
     data() {
         return {
-            favorites: {}
+            favorites: {},
+            overviewTabActive: true,
+            buysellTabActive: false,
+            walletsTabActive: false,
+            reportingTabActive: false,
+            communityTabActive: false,
         }
+    },
+    methods: {
+        overviewTabClicked(){
+            this.overviewTabActive = true;
+            this.buysellTabActive = false;
+            this.walletsTabActive = false;
+            this.reportingTabActive = false;
+            this.communityTabActive = false;
+            this.$emit('overviewSidebarTabClicked');
+        },
+        buysellTabClicked(){
+            this.overviewTabActive = false;
+            this.buysellTabActive = true;
+            this.walletsTabActive = false;
+            this.reportingTabActive = false;
+            this.communityTabActive = false;
+            this.$emit('buysellSidebarTabClicked');
+
+        },
+        walletsTabClicked(){
+            this.overviewTabActive = false;
+            this.buysellTabActive = false;
+            this.walletsTabActive = true;
+            this.reportingTabActive = false;
+            this.communityTabActive = false;
+            this.$emit('walletsSidebarTabClicked');
+
+        },
+        reportingTabClicked(){
+            this.overviewTabActive = false;
+            this.buysellTabActive = false;
+            this.walletsTabActive = false;
+            this.reportingTabActive = true;
+            this.communityTabActive = false;
+            this.$emit('reportingSidebarTabClicked');
+        },
+        communityTabClicked(){
+            this.overviewTabActive = false;
+            this.buysellTabActive = false;
+            this.walletsTabActive = false;
+            this.reportingTabActive = false;
+            this.communityTabActive = true;
+            this.$emit('communitySidebarTabClicked');
+        },
+
   }
 }
 </script>
 
 <style>
+    /* .chart-div {
+        background-color: rgba(0, 0, 0, 0.411);
+        width: 80px;
+        height: 28px;
+    } */
     .logo {
         display: flex;
         align-items: center;

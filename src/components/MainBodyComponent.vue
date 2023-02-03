@@ -1,32 +1,45 @@
 <template>
     <div>
         <top-bar-component></top-bar-component>
-        <div class="balance-summary">
-            <current-balance-tile></current-balance-tile>
-            <summary-tile v-if="windowWidth > 940" :plotDataProp=this.plotDataProp></summary-tile>
-        </div>
-        <div class="blurring"></div>
-        <div class="tab-tile">
-            <tab-tile-bar></tab-tile-bar>
-            <tab-tile-summary-cryptocurr logo_src="/../img/bitcoin-favorites-icon.svg" abbreviature="BTC"
-                curr_name="Bitcoin" :price=this.cryptoData[0][0] :change=this.cryptoData[1][0]
-                curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
-            <tab-tile-summary-cryptocurr logo_src="/../img/ethereum-favorites-icon.svg" abbreviature="ETH"
-                curr_name="Ethereum" :price=this.cryptoData[0][1] :change=this.cryptoData[1][1]
-                curve_src="/../img/ethereum-longer-curve.svg"></tab-tile-summary-cryptocurr>
-            <tab-tile-summary-cryptocurr logo_src="/../img/ripple-favorites-icon.svg" abbreviature="ADA"
-                curr_name="Cardano" :price=this.cryptoData[0][2] :change=this.cryptoData[1][2]
-                curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
-            <tab-tile-summary-cryptocurr logo_src="/../img/bitcoin-favorites-icon.svg" abbreviature="BTC"
-                curr_name="Bitcoin" :price=this.cryptoData[0][0] :change=this.cryptoData[1][0]
-                curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
-        </div>
-        <div v-if="windowWidth <= 940" class="summary-tile-bottom">
-            <summary-tile :plotDataProp=this.plotDataProp></summary-tile>
-        </div>
-        <div class="exp-chart">
-            <canvas id="canvas"></canvas>
-        </div>
+        <div v-if="overviewTabContent" class="overview">
+            <div class="balance-summary">
+                <current-balance-tile></current-balance-tile>
+                <summary-tile v-if="windowWidth > 940" :plotDataProp=this.plotDataProp></summary-tile>
+            </div>
+            <div class="blurring"></div>
+            <div class="tab-tile">
+                <tab-tile-bar @summaryTabActivated = summaryTabActivated()
+                            @tableTabActivated = tableTabActivated()
+                            @chartsTabActivated = chartTabActivated()
+                            @reportingTabActivated = reportingTabActivated()
+                            @analisisTabActivated = analisisTabActivated()></tab-tile-bar>
+                <div v-if="summaryTabShowContent" class="tab-tile-summary">
+                    <tab-tile-summary-cryptocurr logo_src="/../img/bitcoin-favorites-icon.svg" abbreviature="BTC"
+                        curr_name="Bitcoin" :price=this.cryptoData[0][0] :change=this.cryptoData[1][0]
+                        curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
+                    <tab-tile-summary-cryptocurr logo_src="/../img/ethereum-favorites-icon.svg" abbreviature="ETH"
+                        curr_name="Ethereum" :price=this.cryptoData[0][1] :change=this.cryptoData[1][1]
+                        curve_src="/../img/ethereum-longer-curve.svg"></tab-tile-summary-cryptocurr>
+                    <tab-tile-summary-cryptocurr logo_src="/../img/ripple-favorites-icon.svg" abbreviature="ADA"
+                        curr_name="Cardano" :price=this.cryptoData[0][2] :change=this.cryptoData[1][2]
+                        curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
+                    <tab-tile-summary-cryptocurr logo_src="/../img/bitcoin-favorites-icon.svg" abbreviature="BTC"
+                        curr_name="Bitcoin" :price=this.cryptoData[0][0] :change=this.cryptoData[1][0]
+                        curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
+                </div>
+                <div v-else-if="tableTabShowContent"></div>
+                <div v-else-if="chartTabShowContent"></div>
+                <div v-else-if="reportingTabShowContent"></div>
+                <div v-else-if="analisisTabShowContent"></div>
+
+            </div>
+            <div v-if="windowWidth <= 940" class="summary-tile-bottom">
+                <summary-tile :plotDataProp=this.plotDataProp></summary-tile>
+            </div>
+            <div class="exp-chart">
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>    
     </div>
 </template>
 
@@ -47,6 +60,7 @@ export default {
         TabTileSummaryCryptocurr
     },
     props: {
+        overviewTabContent: {required:true, type: Boolean},
         cryptoDataProp: {required:true, type: Array},
         plotDataProp: {required: true, type: Array}
     },
@@ -54,16 +68,54 @@ export default {
         return {
             // cryptoData: [['default','place','holder'],['default','place','holder']],
             cryptoData: this.$root.$data.cryptoData,
-            windowWidth: window.innerWidth
+            windowWidth: window.innerWidth,
+            summaryTabShowContent: true,
+            tableTabShowContent: false,
+            chartsTabShowContent: false,
+            reportingTabShowContent: false,
+            analisisTabShowContent: false,
         };
     },
     methods: {
-        
+        summaryTabActivated(){
+            this.summaryTabShowContent = true;
+            this.tableTabShowContent = false;
+            this.chartsTabShowContent = false;
+            this.reportingTabShowContent = false;
+            this.analisisTabShowContent = false;
+        },
+        tableTabActivated(){
+            this.summaryTabShowContent = false;
+            this.tableTabShowContent = true;
+            this.chartsTabShowContent = false;
+            this.reportingTabShowContent = false;
+            this.analisisTabShowContent = false;
+        },
+        chartsTabActivated(){
+            this.summaryTabShowContent = false;
+            this.tableTabShowContent = false;
+            this.chartsTabShowContent = true;
+            this.reportingTabShowContent = false;
+            this.analisisTabShowContent = false;
+        },
+        reportingTabActivated(){
+            this.summaryTabShowContent = false;
+            this.tableTatabShowContent = false;
+            this.chartsTabShowContent = false;
+            this.reportingTabShowContent = true;
+            this.analisisTabShowContent = false;
+        },
+        analisisTabActivated(){
+            this.summaryTabShowContent = false;
+            this.tableTabShowContent = false;
+            this.chartsTabShowContent = false;
+            this.reportingTabShowContent = false;
+            this.analisisTabShowContent = true;
+        }
         
     },
     created() {
     }
-
 }
 </script>
 
@@ -89,6 +141,7 @@ export default {
     margin-left: 68px;
 }
 .tab-tile {
+    min-height: 504px;
     max-width: 1200px;
     box-sizing: border-box;
     border-radius: 16px;
