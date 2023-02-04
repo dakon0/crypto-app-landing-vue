@@ -1,10 +1,10 @@
 <template>
-    <div class="tab-tyle-summary-cryptocurr">
+    <div class="tab-tyle-summary-cryptocurr" :class="{mobileMode: this.windowWidth<650}">
         <div class="logo-name">
             <div class="tab-logo">
                 <img :src=logo_src width="32" height="32">
             </div>
-            <div class="name-abbreviation">
+            <div v-if="this.windowWidth>=550" class="name-abbreviation">
                 <div class="abbreviation">{{ abbreviature }}
             </div>
             <div class="name">{{ curr_name }}</div>
@@ -61,6 +61,10 @@
         border-radius: 8px;
         margin: 0px 32px 8px 0px;
         text-align: left;
+    }
+    .mobileMode {
+        padding-left: 2px;
+        padding-right: 2px;
     }
     .tab-tyle-summary-cryptocurr .logo-name {
         display: flex;

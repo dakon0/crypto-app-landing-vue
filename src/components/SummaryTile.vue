@@ -1,22 +1,11 @@
 <template>
-    <div class="summary">
+    <div class="summary" :class="{mobileMode: this.windowWidth<500}">
         <div class="head">
             <div class="heading">Summary</div>
             <div class="head-btn"><img src="/../img/dots-icon.svg" width="24" height="24"></div>
         </div>
-        <div v-if="true" class="chart-div">
+        <div class="chart-div" >
             <canvas id="chart-canvas"></canvas>
-        </div>
-        <div v-else class="img-chart-plot">
-            <img class='img-chart' src="/../img/summary-chart-icon.svg">
-            <img class='plot' src="/../img/summary-plot.svg">
-            <div class="pointer-wall"></div>
-            <div class="point-in-plot"></div>
-            <div class="price-mark">
-                <div class="rect">$7,5k</div>
-                <img src="/../img/price-mark-triangle-icon.svg">
-            </div>
-            <div class="timestamp">17 May</div>
         </div>
         <div class="plot-labels">
             <div class="this-month-sign"></div>
@@ -37,10 +26,14 @@ export default {
     data() {
         return {
             summaryThisMonthPlotData: this.$root.$data.plotData[0],//data fetched from api, but is 
-            summaryLastMonthPlotData: this.$root.$data.plotData[1],//in between 0 and 1 becouse of free subscription 
+            summaryLastMonthPlotData: this.$root.$data.plotData[1],//in between 0 and 1 becouse of free subscription
+            windowWidth: window.innerWidth,
         };
     },
     methods: {
+        onResize(){
+            this.windowWidth = window.innerWidth;
+        },
         drawChart() {
             const chartCtx = document.getElementById('chart-canvas').getContext('2d');
             const gradient = chartCtx.createLinearGradient(0, 0, 0, 250);
@@ -135,9 +128,11 @@ export default {
             pointer.src = '/../img/summary-plot-circle-pointer.svg'
         },
         fillSummaryPlotData() {//used data is fetched but between 0 and 1, so we adjust it to look nicer 
-            for (let i = 0; i < 10; i++) {
-                this.summaryThisMonthPlotData[i] = this.summaryThisMonthPlotData[i] * 30;
-                this.summaryLastMonthPlotData[i] = this.summaryLastMonthPlotData[i] * 30;
+            if(this.summaryThisMonthPlotData[0]<5){
+                for (let i = 0; i < 10; i++) {
+                    this.summaryThisMonthPlotData[i] = this.summaryThisMonthPlotData[i] * 30;
+                    this.summaryLastMonthPlotData[i] = this.summaryLastMonthPlotData[i] * 30;
+                }
             }
             this.summaryThisMonthPlotData[4] = 21;
         }
@@ -145,8 +140,15 @@ export default {
     created() {
     },
     mounted() {
+        this.$nextTick(() => {
+            window.addEventListener('resize', this.onResize);
+        });
         this.fillSummaryPlotData();
         this.drawChart();
+
+    },
+    beforeUnmount() { 
+        window.removeEventListener('resize', this.onResize); 
     }
 
 }
@@ -267,11 +269,19 @@ export default {
    .summary .plot-labels .this-month {
     margin-right: 12px;
    }
-   .summary .chart-div {
+   .chart-div {
     margin: 24px 32px 24px 32px;
    }
-   .summary .chart-div canvas{
+   .summary .chart-div #chart-canvas {
     width: 435px;
     height: 189px;
    }
+   .mobileMode {
+    width: 435px;
+   }
+   .mobileMode .chart-div {
+    margin-left: 0px;
+    margin-right: 0px;
+   }
+
 </style>

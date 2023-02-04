@@ -1,13 +1,13 @@
 <template>
     <div>
-        <top-bar-component></top-bar-component>
+        <top-bar-component :class="{mobileMode: this.windowWidth < 650}"></top-bar-component>
         <div v-if="overviewTabContent" class="overview">
-            <div class="balance-summary">
+            <div class="balance-summary" :class="{mobileMode: this.windowWidth < 650}">
                 <current-balance-tile></current-balance-tile>
                 <summary-tile v-if="windowWidth > 940" :plotDataProp=this.plotDataProp></summary-tile>
             </div>
             <div class="blurring"></div>
-            <div class="tab-tile">
+            <div class="tab-tile" :class="{mobileMode: this.windowWidth < 650}">
                 <tab-tile-bar @summaryTabActivated = summaryTabActivated()
                             @tableTabActivated = tableTabActivated()
                             @chartsTabActivated = chartTabActivated()
@@ -33,7 +33,7 @@
                 <div v-else-if="analisisTabShowContent"></div>
 
             </div>
-            <div v-if="windowWidth <= 940" class="summary-tile-bottom">
+            <div v-if="windowWidth <= 940" class="summary-tile-bottom" :class="{mobileMode: this.windowWidth < 650}">
                 <summary-tile :plotDataProp=this.plotDataProp></summary-tile>
             </div>
             <div class="exp-chart">
@@ -68,7 +68,8 @@ export default {
         return {
             // cryptoData: [['default','place','holder'],['default','place','holder']],
             cryptoData: this.$root.$data.cryptoData,
-            windowWidth: window.innerWidth,
+            // windowWidth: window.innerWidth,
+            windowWidth: this.$root.$data.windowWidth,
             summaryTabShowContent: true,
             tableTabShowContent: false,
             chartsTabShowContent: false,
@@ -120,11 +121,6 @@ export default {
 </script>
 
 <style scoped>
-.chart {
-    height: 500px;
-    width: 500px;
-    /* background-color: aquamarine; */
-}
 .balance-summary {
     display: flex;
     margin-top: 32px;
@@ -164,5 +160,13 @@ export default {
     bottom: 0px;
     background: linear-gradient(180deg, rgba(139, 167, 32, 0) 0%, rgba(255, 255, 255, 1) 100%);
     pointer-events: none;
+}
+.mobileMode{
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 2px;
+}
+.mobileMode .tab-bar {/* .tab-bar element is located in TabTileBar.vue */
+    margin-left: 4px;
 }
 </style>

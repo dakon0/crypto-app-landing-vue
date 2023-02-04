@@ -2,7 +2,7 @@
   <sidebar-component v-if="windowWidth > 1200" class="sidebar"
     @overviewSidebarTabClicked=overviewSidebarTabClicked()
     @buysellSidebarTabClicked=buysellSidebarTabClicked()
-    @walletSidebarTabClicked=walletSidebarTabClicked()
+    @walletsSidebarTabClicked=walletsSidebarTabClicked()
     @communitySidebarTabClicked=reportingSidebarTabClicked()
     @reportingSidebarTabClicked=communitySidebarTabClicked()></sidebar-component>
   <main-body-component v-if="cryptoData[0][0] && plotData[0][0]"  class="main-body" :class="{ sidebarHidden: !(windowWidth > 1200) }" :overviewTabContent=this.overviewActivated :cryptoDataProp=this.cryptoData :plotDataProp=this.plotData></main-body-component>
@@ -44,7 +44,7 @@ export default {
       this.reportingActivated = false;
       this.communityActivated = false;
     },
-    walletSidebarTabClicked(){
+    walletsSidebarTabClicked(){
       this.overviewActivated = false;
       this.buysellActivated = false;
       this.walletsActivated = true;

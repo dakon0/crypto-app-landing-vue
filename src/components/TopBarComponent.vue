@@ -1,13 +1,14 @@
 <template>
-    <div class="top-bar">
-        <div class="search-input">
+    <div class="top-bar" :class="{mobileMode: windowWidth<710}">
+        <div v-if="windowWidth > 710" class="search-input">
             <img src="/../img/search-input-icon.svg" width="12" height="12">
             <form>
                 <input type="search" placeholder="Search">
             </form>
         </div>
+        <div v-else class="placeholder"></div>
         <div class="notifications-menu">
-            <div class="notifications">
+            <div v-if="windowWidth > 710" class="notifications">
                 <img src="/../img/ring-icon.svg" width="20" height="20">
                 <img class="notification-identifier" src="/../img/notification-identifier-icon.svg" width="12" height="12">
             </div>
@@ -29,12 +30,25 @@
         data() {
             return{
                 menu_render: false,
+                windowWidth: window.innerWidth,
+
             };
         },
         methods: {
             hamburgerClicked(){
                 this.menu_render = !this.menu_render;
-            }
+            },
+            onResize(){
+                this.windowWidth = window.innerWidth;
+            },
+        },
+        mounted() {
+            this.$nextTick(() => {
+            window.addEventListener('resize', this.onResize);
+            })
+        },
+        beforeUnmount() { 
+            window.removeEventListener('resize', this.onResize); 
         }
     }
 </script>
@@ -109,6 +123,9 @@
         padding: 14px;
         background: #b5b5bb;
         border-radius: 8px;
+    }
+    .mobileMode .menu-bar div{
+        margin-right: 0px;
     }
 
 </style>
