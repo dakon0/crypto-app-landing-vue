@@ -173,7 +173,7 @@ export default {
     box-sizing: border-box;
     max-width: 1176px;
     width: 100%;
-    height: 150px;
+    height: 136px;
     border-radius: 0 0 20px 20px;
     background: linear-gradient(180deg, rgba(139, 167, 32, 0) 0%, rgba(255, 255, 255, 1) 100%);
 }

@@ -17,7 +17,8 @@
         <div class="change">
             <div class="change-label">Change</div>
             <div class="change-number" :class="{increase: Number(change) > 0 }">
-                <div>{{ change }}%</div>
+                <div v-if="Number(change) >= 0 ">{{'+ ' + change.slice(1) }}%</div>
+                <div v-if="Number(change) < 0 ">{{'- ' + change.slice(1) }}%</div>
                 <img v-if="Number(change) > 0 " src="/../img/increase-transparent-icon.svg"> 
                 <img v-else src="/../img/decrease-transparent-icon.svg">
             </div>

@@ -19,7 +19,7 @@
                     <div class="favorites-dots-btn"><img class src="/../img/dots-icon.svg"></div> 
                 </div>
                 <sidebar-favorites-tab logo="/../img/bitcoin-favorites-icon.svg" abbreviation="BTC" full_name="Bitcoin" :curve_src=curveSources :change=this.change[0]></sidebar-favorites-tab> 
-                <sidebar-favorites-tab logo="/../img/xrp-logo-icon.png" abbreviation="XRP" full_name="Ripple" :curve_src=curveSources :change=this.change[3]></sidebar-favorites-tab> 
+                <sidebar-favorites-tab logo="/../img/ripple-favorites-icon.svg" abbreviation="XRP" full_name="Ripple" :curve_src=curveSources :change=this.change[3]></sidebar-favorites-tab> 
             </div>
         </div>
         <div class="user-profile-tab">
@@ -174,7 +174,7 @@ export default {
     .user-profile-tab {
         display: flex;
         align-items: center;
-        margin: 24px;
+        margin: 0px 24px 24px 24px;
         /* position: absolute; */
         /* top: calc(100vh - 84px); */
         /* left: 0px; */
