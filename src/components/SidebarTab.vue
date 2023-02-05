@@ -30,7 +30,7 @@
         box-sizing: border-box;
         width: 244px;
         height: 44px;
-        margin: 0px 10px 0px 10px; 
+        margin: 0px 10px 12.5px 10px; 
         border-radius: 4px;
         color: rgba(10, 4, 28, 0.4);
         background: #F7F7F9;

@@ -1,45 +1,49 @@
 <template>
     <div>
-        <top-bar-component :class="{mobileMode: this.windowWidth < 650}"></top-bar-component>
-        <div v-if="overviewTabContent" class="overview">
+        <top-bar-component ></top-bar-component>
+        <div v-show="overviewTabContent" class="overview">
             <div class="balance-summary" :class="{mobileMode: this.windowWidth < 650}">
                 <current-balance-tile></current-balance-tile>
-                <summary-tile v-if="windowWidth > 940" :plotDataProp=this.plotDataProp></summary-tile>
+                <summary-tile v-if="windowWidth > 1000" :plotDataProp=this.plotDataProp></summary-tile>
             </div>
-            <div class="blurring"></div>
             <div class="tab-tile" :class="{mobileMode: this.windowWidth < 650}">
                 <tab-tile-bar @summaryTabActivated = summaryTabActivated()
                             @tableTabActivated = tableTabActivated()
-                            @chartsTabActivated = chartTabActivated()
+                            @chartsTabActivated = chartsTabActivated()
                             @reportingTabActivated = reportingTabActivated()
                             @analisisTabActivated = analisisTabActivated()></tab-tile-bar>
                 <div v-if="summaryTabShowContent" class="tab-tile-summary">
                     <tab-tile-summary-cryptocurr logo_src="/../img/bitcoin-favorites-icon.svg" abbreviature="BTC"
                         curr_name="Bitcoin" :price=this.cryptoData[0][0] :change=this.cryptoData[1][0]
-                        curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
+                        :curve_src=this.curveSources></tab-tile-summary-cryptocurr>
                     <tab-tile-summary-cryptocurr logo_src="/../img/ethereum-favorites-icon.svg" abbreviature="ETH"
                         curr_name="Ethereum" :price=this.cryptoData[0][1] :change=this.cryptoData[1][1]
-                        curve_src="/../img/ethereum-longer-curve.svg"></tab-tile-summary-cryptocurr>
+                        :curve_src=this.curveSources></tab-tile-summary-cryptocurr>
                     <tab-tile-summary-cryptocurr logo_src="/../img/ripple-favorites-icon.svg" abbreviature="ADA"
                         curr_name="Cardano" :price=this.cryptoData[0][2] :change=this.cryptoData[1][2]
-                        curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
-                    <tab-tile-summary-cryptocurr logo_src="/../img/bitcoin-favorites-icon.svg" abbreviature="BTC"
-                        curr_name="Bitcoin" :price=this.cryptoData[0][0] :change=this.cryptoData[1][0]
-                        curve_src="/../img/btc-longer-curve.svg"></tab-tile-summary-cryptocurr>
+                        :curve_src=this.curveSources></tab-tile-summary-cryptocurr>
+                    <tab-tile-summary-cryptocurr logo_src="/../img/xrp-logo-icon.png" abbreviature="XRP"
+                        curr_name="Ripple" :price=this.cryptoData[0][3] :change=this.cryptoData[1][3]
+                        :curve_src=this.curveSources></tab-tile-summary-cryptocurr>
                 </div>
                 <div v-else-if="tableTabShowContent"></div>
-                <div v-else-if="chartTabShowContent"></div>
+                <div v-else-if="chartsTabShowContent"></div>
                 <div v-else-if="reportingTabShowContent"></div>
                 <div v-else-if="analisisTabShowContent"></div>
 
             </div>
-            <div v-if="windowWidth <= 940" class="summary-tile-bottom" :class="{mobileMode: this.windowWidth < 650}">
+            <div v-if="windowWidth <= 1000" class="summary-tile-bottom" :class="{mobileModeSummaryTile: this.windowWidth < 650}">
                 <summary-tile :plotDataProp=this.plotDataProp></summary-tile>
             </div>
+
             <div class="exp-chart">
                 <canvas id="canvas"></canvas>
             </div>
-        </div>    
+
+ 
+
+        </div>
+        <div class="blurring" :class="{pageIsTall: this.windowHeight > 1000}"></div>  
     </div>
 </template>
 
@@ -66,10 +70,10 @@ export default {
     },
     data() {
         return {
-            // cryptoData: [['default','place','holder'],['default','place','holder']],
             cryptoData: this.$root.$data.cryptoData,
-            // windowWidth: window.innerWidth,
-            windowWidth: this.$root.$data.windowWidth,
+            windowWidth: window.innerWidth,
+            windowHeight: window.innerHeight,
+            curveSources: ['/../img/btc-longer-curve.svg','/../img/ethereum-longer-curve.svg'],
             summaryTabShowContent: true,
             tableTabShowContent: false,
             chartsTabShowContent: false,
@@ -112,10 +116,22 @@ export default {
             this.chartsTabShowContent = false;
             this.reportingTabShowContent = false;
             this.analisisTabShowContent = true;
+        },
+        onResize(){
+            this.windowWidth = window.innerWidth;
+            this.windowHeight = window.innerHeight;
         }
         
     },
     created() {
+    },
+    mounted() {
+        this.$nextTick(() => {
+            window.addEventListener('resize', this.onResize);
+        })
+    },
+    beforeUnmount() { 
+        window.removeEventListener('resize', this.onResize); 
     }
 }
 </script>
@@ -148,23 +164,33 @@ export default {
     padding-top: 32px;
     padding-left: 32px;
 }
+/* .overview {
+    position: relative;
+} */
 .blurring {
-    /* max-width: 1200px; */
-    box-sizing: border-box;
     position: fixed;
-    /* margin-left: 68px; */
-    /* margin-right: 68px; */
-    height: 15%;
-    /* width: calc(100% - 136px); */
-    width: calc(100%);
-    bottom: 0px;
+    bottom: 0;
+    box-sizing: border-box;
+    max-width: 1176px;
+    width: 100%;
+    height: 150px;
+    border-radius: 0 0 20px 20px;
     background: linear-gradient(180deg, rgba(139, 167, 32, 0) 0%, rgba(255, 255, 255, 1) 100%);
-    pointer-events: none;
+}
+.blurring.pageIsTall{
+    /* position: absolute; */
+    /* top: calc(100% - 150px); */
+    position: fixed;
+    top: 850px
 }
 .mobileMode{
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 2px;
+    margin-right: 2px;
     padding-left: 2px;
+}
+.mobileModeSummaryTile {
+    margin-left: 2px;
+    margin-right: 2px;
 }
 .mobileMode .tab-bar {/* .tab-bar element is located in TabTileBar.vue */
     margin-left: 4px;

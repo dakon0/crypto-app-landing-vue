@@ -1,37 +1,37 @@
 <template>
-    <div>
-        <div class="logo">
-            <div><img src="img/logo-img.svg"></div>
-            <div><p class="logo-name">Payte</p></div>
-        </div>
-        <div class="sidebar-tabs">
-            <sidebar-tab icon_src="/../img/overview-icon.svg" label="Overview" notifications="9+" :active=overviewTabActive @click=overviewTabClicked()></sidebar-tab>
-            <sidebar-tab icon_src="/../img/buy-sell-tab-icon.svg" label="Buy/Sell" notifications="" :active=buysellTabActive @click=buysellTabClicked()></sidebar-tab>
-            <sidebar-tab icon_src="/../img/wallets-tab-icon.svg" label="Wallets" notifications="" :active=walletsTabActive @click=walletsTabClicked()></sidebar-tab>
-            <sidebar-tab icon_src="/../img/reporting-tab-icon.svg" label="Reporting" notifications="5+" :active=reportingTabActive @click=reportingTabClicked()></sidebar-tab>
-            <sidebar-tab icon_src="/../img/community-tab-icon.svg" label="Community" notifications="" :active=communityTabActive @click=communityTabClicked()></sidebar-tab>
-        </div>
-        <div class="favorites">
-            <div class="favorites-head">
-                <p>Favorites</p>
-                <div class="favorites-dots-btn"><img class src="/../img/dots-icon.svg"></div> 
+    <div class="sidebar-content">
+        <div>
+            <div class="logo">
+                <div><img src="img/logo-img.svg"></div>
+                <div><p class="logo-name">Payte</p></div>
             </div>
-            <sidebar-favorites-tab logo="/../img/bitcoin-favorites-icon.svg" abbreviation="BTC" full_name="Bitcoin" curve_src="/../img/btc-small-curve.svg" ></sidebar-favorites-tab> 
-            <sidebar-favorites-tab logo="/../img/ripple-favorites-icon.svg" abbreviation="XRP" full_name="Ripple" curve_src="/../img/ripple-small-curve.svg" ></sidebar-favorites-tab> 
-            <div class="sidebar-chart-div">
-                <canvas id="sidebar-chart-canvas"></canvas>
+            <div class="sidebar-tabs">
+                <sidebar-tab icon_src="/../img/overview-icon.svg" label="Overview" notifications="9+" :active=overviewTabActive @click=overviewTabClicked()></sidebar-tab>
+                <sidebar-tab icon_src="/../img/buy-sell-tab-icon.svg" label="Buy/Sell" notifications="" :active=buysellTabActive @click=buysellTabClicked()></sidebar-tab>
+                <sidebar-tab icon_src="/../img/wallets-tab-icon.svg" label="Wallets" notifications="" :active=walletsTabActive @click=walletsTabClicked()></sidebar-tab>
+                <sidebar-tab icon_src="/../img/bundles-tab-icon.svg" label="Bundles" notifications="" :active=bundlesTabActive @click=bundlesTabClicked()></sidebar-tab>
+                <sidebar-tab icon_src="/../img/reporting-tab-icon.svg" label="Reporting" notifications="5+" :active=reportingTabActive @click=reportingTabClicked()></sidebar-tab>
+                <sidebar-tab icon_src="/../img/community-tab-icon.svg" label="Community" notifications="" :active=communityTabActive @click=communityTabClicked()></sidebar-tab>
             </div>
-            <div class="user-profile-tab">
-                <div class="profile-photo">
-                    <img src="/../img/a-portrait-of-businessman.png">
+            <div class="favorites">
+                <div class="favorites-head">
+                    <p>Favorites</p>
+                    <div class="favorites-dots-btn"><img class src="/../img/dots-icon.svg"></div> 
                 </div>
-                <div class="name-email">
-                    <div class="name">Marc Webber</div>
-                    <div class="email">marc@riot.com</div>
-                </div>
-                <div class="user-dots-btn">
-                    <img class src="/../img/dots-icon.svg">
-                </div>
+                <sidebar-favorites-tab logo="/../img/bitcoin-favorites-icon.svg" abbreviation="BTC" full_name="Bitcoin" :curve_src=curveSources :change=this.change[0]></sidebar-favorites-tab> 
+                <sidebar-favorites-tab logo="/../img/xrp-logo-icon.png" abbreviation="XRP" full_name="Ripple" :curve_src=curveSources :change=this.change[3]></sidebar-favorites-tab> 
+            </div>
+        </div>
+        <div class="user-profile-tab">
+            <div class="profile-photo">
+                <img src="/../img/a-portrait-of-businessman.png">
+            </div>
+            <div class="name-email">
+                <div class="name">Marc Webber</div>
+                <div class="email">marc@riot.com</div>
+            </div>
+            <div class="user-dots-btn">
+                <img class src="/../img/dots-icon.svg">
             </div>
         </div>
     </div>
@@ -53,8 +53,11 @@ export default {
             overviewTabActive: true,
             buysellTabActive: false,
             walletsTabActive: false,
+            bundlesTabActive: false,
             reportingTabActive: false,
             communityTabActive: false,
+            change: this.$root.$data.cryptoData[1],
+            curveSources: ['/../img/ripple-small-curve.svg', '/../img/btc-small-curve.svg'] //images for decresing and increasing changes
         }
     },
     methods: {
@@ -62,6 +65,7 @@ export default {
             this.overviewTabActive = true;
             this.buysellTabActive = false;
             this.walletsTabActive = false;
+            this.bundlesTabActive = false;
             this.reportingTabActive = false;
             this.communityTabActive = false;
             this.$emit('overviewSidebarTabClicked');
@@ -70,6 +74,7 @@ export default {
             this.overviewTabActive = false;
             this.buysellTabActive = true;
             this.walletsTabActive = false;
+            this.bundlesTabActive = false;
             this.reportingTabActive = false;
             this.communityTabActive = false;
             this.$emit('buysellSidebarTabClicked');
@@ -79,15 +84,25 @@ export default {
             this.overviewTabActive = false;
             this.buysellTabActive = false;
             this.walletsTabActive = true;
+            this.bundlesTabActive = false;
             this.reportingTabActive = false;
             this.communityTabActive = false;
             this.$emit('walletsSidebarTabClicked');
-
+        },
+        bundlesTabClicked(){
+            this.overviewTabActive = false;
+            this.buysellTabActive = false;
+            this.walletsTabActive = false;
+            this.bundlesTabActive = true;
+            this.reportingTabActive = false;
+            this.communityTabActive = false;
+            this.$emit('bundlesSidebarTabClicked');
         },
         reportingTabClicked(){
             this.overviewTabActive = false;
             this.buysellTabActive = false;
             this.walletsTabActive = false;
+            this.bundlesTabActive = false;
             this.reportingTabActive = true;
             this.communityTabActive = false;
             this.$emit('reportingSidebarTabClicked');
@@ -96,12 +111,14 @@ export default {
             this.overviewTabActive = false;
             this.buysellTabActive = false;
             this.walletsTabActive = false;
+            this.bundlesTabActive = false;
             this.reportingTabActive = false;
             this.communityTabActive = true;
             this.$emit('communitySidebarTabClicked');
         },
-
-  }
+    },
+    mounted() {
+    }
 }
 </script>
 
@@ -149,14 +166,18 @@ export default {
         width: 24px;
         height: 24px;
     }
-
+    .sidebar-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
     .user-profile-tab {
         display: flex;
         align-items: center;
         margin: 24px;
-        position: absolute;
-        top: calc(100vh - 84px);
-        left: 0px;
+        /* position: absolute; */
+        /* top: calc(100vh - 84px); */
+        /* left: 0px; */
     }
     .user-profile-tab .profile-photo {
         background: #FFFFFF;

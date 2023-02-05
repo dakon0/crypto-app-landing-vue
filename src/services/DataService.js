@@ -29,11 +29,13 @@ export default {
     let res = await axios.get("https://express-server-coinmarketcap-api-production.up.railway.app/price-change");
     let currenciesPrices = [(res.data.data.BTC.quote.USD.price),
                             (res.data.data.ETH.quote.USD.price),
-                            (res.data.data.ADA.quote.USD.price)];
+                            (res.data.data.ADA.quote.USD.price),
+                            (res.data.data.XRP.quote.USD.price)];
     currenciesPrices = currenciesPrices.map(this.mapPrice)
     let currenciesChanges = [(res.data.data.BTC.quote.USD.percent_change_24h).toFixed(2),
                              (res.data.data.ETH.quote.USD.percent_change_24h).toFixed(2),
-                             (res.data.data.ADA.quote.USD.percent_change_24h).toFixed(2)];
+                             (res.data.data.ADA.quote.USD.percent_change_24h).toFixed(2),
+                             (res.data.data.XRP.quote.USD.percent_change_24h).toFixed(2)*-1];
     currenciesChanges = currenciesChanges.map(this.mapChange)
     return [currenciesPrices, currenciesChanges];//returning only needed data
   },
@@ -41,7 +43,7 @@ export default {
     return quotes.quote.USD.price;
   },
   async getHistoricals() {
-    //let res = await axios.get("http://localhost:8000/historicals");
+    // let res = await axios.get("http://localhost:8000/historicals");
     let res = await axios.get("https://express-server-coinmarketcap-api-production.up.railway.app/historicals");
     let btc = res.data.data.BTC.quotes;
     btc = btc.map(this.quotes2prices);

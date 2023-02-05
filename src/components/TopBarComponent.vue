@@ -1,6 +1,6 @@
 <template>
-    <div class="top-bar" :class="{mobileMode: windowWidth<710}">
-        <div v-if="windowWidth > 710" class="search-input">
+    <div class="top-bar" :class="{mobileMode: windowWidth<550}">
+        <div v-if="windowWidth > 750" class="search-input">
             <img src="/../img/search-input-icon.svg" width="12" height="12">
             <form>
                 <input type="search" placeholder="Search">
@@ -8,9 +8,9 @@
         </div>
         <div v-else class="placeholder"></div>
         <div class="notifications-menu">
-            <div v-if="windowWidth > 710" class="notifications">
+            <div v-if="windowWidth > 450" class="notifications">
                 <img src="/../img/ring-icon.svg" width="20" height="20">
-                <img class="notification-identifier" src="/../img/notification-identifier-icon.svg" width="12" height="12">
+                <img class="notification-identifier" src="/../img/notification-identifier-icon.svg" width="16" height="16">
             </div>
             <div class="menu-bar" v-if="menu_render">
                 <div class="home">Home</div>
@@ -125,7 +125,7 @@
         border-radius: 8px;
     }
     .mobileMode .menu-bar div{
-        margin-right: 0px;
+        margin-right: 1px;
     }
 
 </style>

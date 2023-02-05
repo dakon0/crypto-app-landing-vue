@@ -42,7 +42,7 @@
                 this.chartsTabActivated= true;
                 this.reportingTabActivated= false;
                 this.analisisTabActivated= false;
-                this.$emit('chartTabActivated');
+                this.$emit('chartsTabActivated');
 
             },
             activateReportingTab() {

@@ -22,7 +22,9 @@
                 <img v-else src="/../img/decrease-transparent-icon.svg">
             </div>
         </div>
-        <img v-if="windowWidth > 800" class="curve" :src=curve_src>
+        <img v-if="windowWidth > 800 & change >= 0" class="curve" :src=curve_src[0]>
+        <img v-if="windowWidth > 800 & change < 0" class="curve" :src=curve_src[1]>
+
         <div class="sell-buy">
             <div class="sell">Sell</div>
             <div class="buy">Buy</div>
@@ -38,13 +40,26 @@
             curr_name: {required: true, type: String},
             price: {required: true, type: String, default: 'default'},
             change: {required: true, type: String, default: 'default'},
-            curve_src: {required: true, type: String}
+            curve_src: {required: true, type: Array}
         },
         data() {
             return {
                 windowWidth: window.innerWidth
             };
-  }
+        },
+        methods: {
+            onResize(){
+                this.windowWidth = window.innerWidth;
+            },
+        },
+        mounted() {
+            this.$nextTick(() => {
+                window.addEventListener('resize', this.onResize);
+            })
+        },
+        beforeUnmount() { 
+            window.removeEventListener('resize', this.onResize); 
+        }
     }
 </script>
 

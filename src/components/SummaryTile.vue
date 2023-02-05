@@ -7,6 +7,7 @@
         <div class="chart-div" >
             <canvas id="chart-canvas"></canvas>
         </div>
+        <div class="pointer-wall">17 May</div>
         <div class="plot-labels">
             <div class="this-month-sign"></div>
             <div class="this-month">This month</div>
@@ -128,7 +129,7 @@ export default {
             pointer.src = '/../img/summary-plot-circle-pointer.svg'
         },
         fillSummaryPlotData() {//used data is fetched but between 0 and 1, so we adjust it to look nicer 
-            if(this.summaryThisMonthPlotData[0]<5){
+            if(this.summaryThisMonthPlotData[0]<1){
                 for (let i = 0; i < 10; i++) {
                     this.summaryThisMonthPlotData[i] = this.summaryThisMonthPlotData[i] * 30;
                     this.summaryLastMonthPlotData[i] = this.summaryLastMonthPlotData[i] * 30;
@@ -173,7 +174,7 @@ export default {
     margin: 0px 32px 24px 32px;
     justify-content: space-between;
    }
-   .summary .plot {
+   /* .summary .plot {
     position: relative;
     top: -162px;
     left: 13px;
@@ -229,8 +230,8 @@ export default {
    .summary .price-mark img {
     position: relative;
     top: -11px;
-   }
-   .summary .timestamp {
+   } */
+   /* .summary .timestamp {
     position: relative;
     top: -375px;
     left: 40px;
@@ -238,7 +239,7 @@ export default {
     font-size: 12px;
     line-height: 10px;
     color: #0A041C;
-   }
+   } */
    .summary .plot-labels {
     border-top: solid 1px #EEEEEE;
     display: flex;
@@ -270,14 +271,32 @@ export default {
     margin-right: 12px;
    }
    .chart-div {
-    margin: 24px 32px 24px 32px;
+    margin: 24px 32px 0px 32px;
    }
    .summary .chart-div #chart-canvas {
     width: 435px;
     height: 189px;
    }
+   .pointer-wall {
+    box-sizing: border-box;
+    margin-left: 240.5px;
+    width: 50px;
+    height: 20px;
+    border-left: 1px solid #00000010;
+    /* padding-top: 5px; */
+    padding-left: 7px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 10px;
+    color: #0A041C;
+
+   }
+   .mobileMode .pointer-wall {
+    margin-left: 208px;
+   }
    .mobileMode {
     width: 435px;
+    /* height: 189px; */
    }
    .mobileMode .chart-div {
     margin-left: 0px;

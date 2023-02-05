@@ -5,8 +5,11 @@
             <div class="abbreviation">{{ abbreviation }}</div>
             <div class="full-name">{{ full_name }}</div>
         </div>
-        <div class="curve">
-            <img :src=curve_src>
+        <div v-if="change < 0" class="curve">
+            <img :src=curve_src[0]>
+        </div>
+        <div v-if="change >= 0" class="curve">
+            <img :src=curve_src[1]>
         </div>
     </div>
 </template>
@@ -18,7 +21,12 @@
             logo: {required: true, type: String},
             abbreviation: {required: true, type: String},
             full_name: {required: true, type: String},
-            curve_src: {required: true, type: String},
+            curve_src: {required: true, type: Array},
+            change: {required: true, type: String}
+        },
+        data() {
+            return {
+            };
         },
         methods: {
         },
@@ -44,6 +52,7 @@
         margin-right: 12px;
     }
     .favorites-element .image img {
+        width: 20px;
         padding: 6px;
     }
 
