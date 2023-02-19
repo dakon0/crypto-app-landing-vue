@@ -71,7 +71,7 @@
         line-height: 10px;
         border-radius: 30px;
         margin-top: 4px;
-        padding: 3px 5px 4px 5px;
+        padding: 3.5px 5px 3.5px 5px;
     }
     .tabIsChosen .notifications {
         background-color: #EA4D4D;

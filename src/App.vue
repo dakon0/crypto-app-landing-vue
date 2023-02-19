@@ -132,7 +132,11 @@ body {
   width:264px;
   height: 100vh;
   max-height: 1000px;
-  border-radius: 20px 0px 0px 20px ;
+  border-radius: 20px 0px 0px 20px;
+  overflow: auto;
+}
+.sidebar::-webkit-scrollbar {
+  display: none;
 }
 .main-body {
   background:  #FFFFFF;
@@ -146,5 +150,8 @@ body {
 .main-body.sidebarHidden {
   width: 100%;
   border-radius: 20px 20px 20px 20px ;
+}
+.main-body::-webkit-scrollbar {
+  display: none;
 }
 </style>

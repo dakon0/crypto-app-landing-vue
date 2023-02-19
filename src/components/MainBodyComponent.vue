@@ -164,9 +164,6 @@ export default {
     padding-top: 32px;
     padding-left: 32px;
 }
-/* .overview {
-    position: relative;
-} */
 .blurring {
     position: fixed;
     bottom: 0;
@@ -178,10 +175,8 @@ export default {
     background: linear-gradient(180deg, rgba(139, 167, 32, 0) 0%, rgba(255, 255, 255, 1) 100%);
 }
 .blurring.pageIsTall{
-    /* position: absolute; */
-    /* top: calc(100% - 150px); */
     position: fixed;
-    top: 850px
+    top: 864px;
 }
 .mobileMode{
     margin-left: 2px;
