@@ -26,7 +26,7 @@ export default {
   },
   async getCurrencies() {
     // let res = await axios.get("http://localhost:3001/crypto-app//price-change");
-    let res = await axios.get("https://poster-backend.onrender.com/crypto-app/price-change");
+    let res = await axios.get("https://davidko5-express.onrender.com/crypto-app/price-change");
     let currenciesPrices = [(res.data.data.BTC.quote.USD.price),
                             (res.data.data.ETH.quote.USD.price),
                             (res.data.data.ADA.quote.USD.price),
@@ -44,7 +44,7 @@ export default {
   },
   async getHistoricals() {
     // let res = await axios.get("http://localhost:3001/crypto-app/historicals");
-    let res = await axios.get("https://poster-backend.onrender.com/crypto-app/historicals");
+    let res = await axios.get("https://davidko5-express.onrender.com/crypto-app/historicals");
     let btc = res.data.data.BTC.quotes;
     btc = btc.map(this.quotes2prices);
     let eth = res.data.data.ETH.quotes;
