@@ -122,7 +122,9 @@ export default {
 }
 html {
   /* background-color: black;*/
-  background-color: #000000;
+  //background-color: #000000;
+  background-color: #e5e5e7;
+
 }
 body {
   margin: 0px;
